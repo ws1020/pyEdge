@@ -10,13 +10,7 @@ from skimage.filters import sobel, prewitt
 from skimage.feature import canny
 import numpy as np
 
-# TODO：these should be passed by the user
-# if no output filename is passed, it should be generated automatically
-input_filename = "test_images/DAPI.png"
-output_filename = "test_images/DAPI_edges.png"
-
-# Read image and find edges
-img = imread(input_filename)
+# Functions 
 
 def find_edges(img:np.array, method:str="canny") -> np.array:
     """Find edges in an image, using the method chosen by the user (default is canny)
@@ -41,18 +35,15 @@ def find_edges(img:np.array, method:str="canny") -> np.array:
 
     return img_edges
 
-# TODO: user should choose method
-img_edges = find_edges(img, "sobel")
-
-# Save to file
-imsave(fname=output_filename, arr=img_edges)
-
-def display_images(img:np.array, cmap:str="gray")-> None:
+def display_images(img:np.array, img_edges: np.array, cmap:str="gray")-> None:
     """Displays the image and the edges side by side
 
     Args:
         img (np.array): The input image
+        img_edges(np.array): The image of the edges
         cmap (str): The colormap. Default is gray
+    
+    Returns: None -  displays the images
     """
 
     # Display images
@@ -65,4 +56,18 @@ def display_images(img:np.array, cmap:str="gray")-> None:
     
     plt.show()
 
-display_images(img, "gray")
+# TODO：these should be passed by the user
+# if no output filename is passed, it should be generated automatically
+input_filename = "test_images/DAPI.png"
+output_filename = "test_images/DAPI_edges.png"
+
+# Read image and find edges
+img = imread(input_filename)
+
+# TODO: user should choose method
+img_edges = find_edges(img, "sobel")
+
+# Save to file
+imsave(fname=output_filename, arr=img_edges)
+
+display_images(img, img_edges, "gray")
